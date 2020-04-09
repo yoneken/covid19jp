@@ -3,18 +3,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def gen_eq_str(coefficients:list, x:str="x", y:str="y"):
-    s = "{} = ".format(y)
+    s = ""
     if len(coefficients) == 0:
-        s += "0"
+        s += " 0"
     else:
         for i, coef in enumerate(coefficients):
             if i == len(coefficients) - 1:
-                s += "{:.2f}".format(coef)
+                s += " {} {:.2f}".format("+" if coef>0 else "-", np.abs(coef))
             elif i == len(coefficients) - 2:
-                s += "{:.2f} {} + ".format(coef, x)
+                s += " {} {:.2f} {}".format("+" if coef>0 else "-", np.abs(coef), x)
             else:
-                s += "{:.2f} {}^{} + ".format(coef, x, len(coefficients)-i-1)
-    return s
+                s += " {} {:.2f} {}^{}".format("+" if coef>0 else "-", np.abs(coef), x, len(coefficients)-i-1)
+    if s[1] == "+":
+        s = s[2:]
+    return "{} ={}".format(y, s)
 
 def draw_approx_curve(x_data:np.ndarray, y_data:np.ndarray, r:range, 
     deg:int, forecast:int=14, color:str="green", info:str=""):

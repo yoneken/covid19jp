@@ -38,7 +38,7 @@ def draw_approx_exp_curve(x_data:np.ndarray, y_data:np.ndarray, r:range,
     coef = np.polyfit(x[1:], log_y, 1)
     x_f = [x_data[i] for i in range(r.start, r.stop + r.step * forecast, r.step)]
     curve = np.exp(coef[1]) * np.exp(coef[0] * (x_f - x_data[r.start])) + y_data[r.start]
-    label = "y = e^({:.2f}*x) + e^{:.2f}".format(coef[0], coef[1])
+    label = "y = {:.2f} e^(x/{:.2f}) ".format(np.exp(coef[1]), 1./coef[0])
     plt.plot(x_f, curve, c=color, label="{} {}".format(label, info))
 
 
@@ -63,8 +63,8 @@ def main():
     #draw_approx_curve(x_latent, j_confirmed, range(15), 2, color="orange", forecast=2, info="(Fit for 3/11-3/31)")
     draw_approx_curve(x_latent, j_confirmed, range(9), 1, color="blue", info="(Fit for 3/16-3/25)")
     draw_approx_curve(x_latent, j_confirmed, range(9,11), 1, color="green", info="(Fit for 3/25-3/28)")
-    draw_approx_curve(x_latent, j_confirmed, range(9,21), 2, color="orange", forecast=10, info="(Fit for 3/25-4/6)")
-    #draw_approx_exp_curve(x_latent, j_confirmed, range(9,21), color="cyan", forecast=0, info="(Fit for 3/11-3/31)")
+    #draw_approx_curve(x_latent, j_confirmed, range(9,21), 2, color="orange", forecast=10, info="(Fit for 3/25-4/6)")
+    draw_approx_exp_curve(x_latent, j_confirmed, range(0,25), color="red", forecast=0, info="(Fit for 3/25-4/6)")
 
     plt.legend(fontsize=12)
     plt.title("Forecast of confirmed case of COVID-19 in Japan")

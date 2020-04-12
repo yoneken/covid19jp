@@ -34,13 +34,15 @@ def draw_approx_exp_curve(x_data:np.ndarray, y_data:np.ndarray, r:range,
     forecast:int=14, color:str="green", info:str=""):
     x = [x_data[i] for i in r] - x_data[r.start]
     y = [y_data[i] for i in r] - y_data[r.start]
-    log_y = np.log(y[1:])
-    coef = np.polyfit(x[1:], log_y, 1)
-    x_f = [x_data[i] for i in range(r.start, r.stop + r.step * forecast, r.step)]
-    curve = np.exp(coef[1]) * np.exp(coef[0] * (x_f - x_data[r.start])) + y_data[r.start]
-    label = "y = {:.2f} e^(x/{:.2f}) ".format(np.exp(coef[1]), 1./coef[0])
-    plt.plot(x_f, curve, c=color, label="{} {}".format(label, info))
 
+    def func(x, a, b, c):
+        return a*np.exp(x/b)+c
+    
+    popt, pcov = curve_fit(func, x, y, p0=(500,5,0))
+    x_f = [x_data[i] for i in range(r.start, r.stop + r.step * forecast, r.step)]
+    curve = func((x_f - x_data[r.start]), popt[0], popt[1], popt[2]) + y_data[r.start]
+    label = "y = {:.2f} e^(x/{:.2f}) ".format(popt[0], popt[1])
+    plt.plot(x_f, curve, c=color, label="{} {}".format(label, info))
 
 def main():
     df = pd.read_csv("COVID_2019.csv")
@@ -64,7 +66,7 @@ def main():
     draw_approx_curve(x_latent, j_confirmed, range(9), 1, color="blue", info="(Fit for 3/16-3/25)")
     draw_approx_curve(x_latent, j_confirmed, range(9,11), 1, color="green", info="(Fit for 3/25-3/28)")
     #draw_approx_curve(x_latent, j_confirmed, range(9,21), 2, color="orange", forecast=10, info="(Fit for 3/25-4/6)")
-    draw_approx_exp_curve(x_latent, j_confirmed, range(0,25), color="red", forecast=0, info="(Fit for 3/25-4/6)")
+    draw_approx_exp_curve(x_latent, j_confirmed, range(9,26), color="red", forecast=0, info="(Fit for 3/25-4/10)")
 
     plt.legend(fontsize=12)
     plt.title("Forecast of confirmed case of COVID-19 in Japan")

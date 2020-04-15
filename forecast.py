@@ -39,7 +39,7 @@ def draw_approx_exp_curve(x_data:np.ndarray, y_data:np.ndarray, r:range,
     def func(x, a, b, c):
         return a*np.exp(x/b)+c
     
-    popt, pcov = curve_fit(func, x, y, p0=(500,5,0))
+    popt, _ = curve_fit(func, x, y, p0=(500,5,0))
     x_f = [x_data[i] for i in range(r.start, r.stop + r.step * forecast, r.step)]
     curve = func((x_f - x_data[r.start]), popt[0], popt[1], popt[2]) + y_data[r.start]
     label = "y = {:.2f} e^(x/{:.2f}) ".format(popt[0], popt[1])

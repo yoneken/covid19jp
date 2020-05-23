@@ -1,4 +1,4 @@
-date,,China,Japan,Korea,Singapore,Italy,Germany,France,USA,ref: https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports
+date,,China,Japan,Korea,Singapore,Italy,Germany,France,USA,https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports
 2020/01/21,Tue.,278,1,1,0,0,0,0,0,
 2020/01/22,Wed.,309,1,1,0,0,0,0,0,
 2020/01/23,Thu.,571,1,1,0,0,0,0,1,
@@ -121,7 +121,7 @@ date,,China,Japan,Korea,Singapore,Italy,Germany,France,USA,ref: https://www.who.
 2020/05/19,Mon.,84500,16365,11078,28343,225886,175210,140497,1477516,
 2020/05/20,Tue.,84505,16385,11110,28794,226699,176007,140959,1477459,
 2020/05/21,Wed.,84507,16424,11122,29364,227364,176752,141312,1501876,
-2020/05/22,Thu.,,,,,,,,,
+2020/05/22,Thu.,84520,16513,11142,29812,228006,177212,141590,1525186,
 2020/05/23,Fri.,,,,,,,,,
 2020/05/24,Sat.,,,,,,,,,
 2020/05/25,Sun.,,,,,,,,,
